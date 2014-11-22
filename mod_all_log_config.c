@@ -868,7 +868,7 @@ static int multi_log_transaction(request_rec *r)
             config_log_transaction(r, cls, mls->default_format);
         }
     }
-    else if (mls->server_config_logs) {
+    if (mls->server_config_logs) {
         clsarray = (config_log_state *) mls->server_config_logs->elts;
         for (i = 0; i < mls->server_config_logs->nelts; ++i) {
             config_log_state *cls = &clsarray[i];
