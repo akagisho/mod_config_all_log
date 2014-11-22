@@ -996,14 +996,14 @@ static const char *set_cookie_log(cmd_parms *cmd, void *dummy, char *fn)
 
 static const command_rec config_log_cmds[] =
 {
-    {"CustomLog", add_custom_log, NULL, RSRC_CONF, TAKE23,
+    {"CustomAllLog", add_custom_log, NULL, RSRC_CONF, TAKE23,
      "a file name, a custom log format string or format name, "
      "and an optional \"env=\" clause (see docs)"},
-    {"TransferLog", set_transfer_log, NULL, RSRC_CONF, TAKE1,
+    {"TransferAllLog", set_transfer_log, NULL, RSRC_CONF, TAKE1,
      "the filename of the access log"},
-    {"LogFormat", log_format, NULL, RSRC_CONF, TAKE12,
+    {"AllLogFormat", log_format, NULL, RSRC_CONF, TAKE12,
      "a log format string (see docs) and an optional format name"},
-    {"CookieLog", set_cookie_log, NULL, RSRC_CONF, TAKE1,
+    {"CookieAllLog", set_cookie_log, NULL, RSRC_CONF, TAKE1,
      "the filename of the cookie log"},
     {NULL}
 };
