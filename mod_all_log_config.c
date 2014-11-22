@@ -144,7 +144,7 @@
 #include "http_log.h"
 #include <limits.h>
 
-module MODULE_VAR_EXPORT config_log_module;
+module MODULE_VAR_EXPORT config_all_log_module;
 
 static int xfer_flags = (O_WRONLY | O_APPEND | O_CREAT);
 #if defined(OS2) || defined(WIN32) || defined(NETWARE)
@@ -853,7 +853,7 @@ static int config_log_transaction(request_rec *r, config_log_state *cls,
 static int multi_log_transaction(request_rec *r)
 {
     multi_log_state *mls = ap_get_module_config(r->server->module_config,
-						&config_log_module);
+						&config_all_log_module);
     config_log_state *clsarray;
     int i;
 
@@ -929,7 +929,7 @@ static const char *log_format(cmd_parms *cmd, void *dummy, char *fmt,
 {
     const char *err_string = NULL;
     multi_log_state *mls = ap_get_module_config(cmd->server->module_config,
-						&config_log_module);
+						&config_all_log_module);
 
     /*
      * If we were given two arguments, the second is a name to be given to the
@@ -955,7 +955,7 @@ static const char *add_custom_log(cmd_parms *cmd, void *dummy, char *fn,
 {
     const char *err_string = NULL;
     multi_log_state *mls = ap_get_module_config(cmd->server->module_config,
-						&config_log_module);
+						&config_all_log_module);
     config_log_state *cls;
 
     cls = (config_log_state *) ap_push_array(mls->config_logs);
@@ -1049,7 +1049,7 @@ static config_log_state *open_multi_logs(server_rec *s, pool *p)
 {
     int i;
     multi_log_state *mls = ap_get_module_config(s->module_config,
-                                             &config_log_module);
+                                             &config_all_log_module);
     config_log_state *clsarray;
     const char *dummy;
     const char *format;
@@ -1123,7 +1123,7 @@ static void flush_all_logs(server_rec *s, pool *p)
     int i;
 
     for (; s; s = s->next) {
-        mls = ap_get_module_config(s->module_config, &config_log_module);
+        mls = ap_get_module_config(s->module_config, &config_all_log_module);
         log_list = NULL;
         if (mls->config_logs->nelts) {
             log_list = mls->config_logs;
@@ -1141,7 +1141,7 @@ static void flush_all_logs(server_rec *s, pool *p)
 }
 #endif
 
-module MODULE_VAR_EXPORT config_log_module =
+module MODULE_VAR_EXPORT config_all_log_module =
 {
     STANDARD_MODULE_STUFF,
     init_config_log,            /* initializer */
